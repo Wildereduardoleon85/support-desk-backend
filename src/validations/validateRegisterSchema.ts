@@ -6,21 +6,20 @@ export const validateRegisterSchema = (req: Request): string[] => {
 
   const errors: string[] = []
 
-  const { isValid: emailIsValid, message: emailMessage } = validateEmail(email)
-  const { isValid: nameIsValid, message: nameMessage } = validateName(name)
-  const { isValid: passwordIsValid, message: passwordMessage } =
-    validatePassword(password)
+  const emailValidation = validateEmail(email)
+  const nameValidation = validateName(name)
+  const passwordValidation = validatePassword(password)
 
-  if (!nameIsValid) {
-    errors.push(nameMessage)
+  if (!nameValidation.isValid) {
+    errors.push(nameValidation.message)
   }
 
-  if (!emailIsValid) {
-    errors.push(emailMessage)
+  if (!emailValidation.isValid) {
+    errors.push(emailValidation.message)
   }
 
-  if (!passwordIsValid) {
-    errors.push(passwordMessage)
+  if (!passwordValidation.isValid) {
+    errors.push(passwordValidation.message)
   }
 
   return errors

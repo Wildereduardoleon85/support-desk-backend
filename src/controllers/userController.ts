@@ -5,8 +5,8 @@ import { Request, Response } from 'express'
  * @route /api/users
  * @acess public
  */
-export const registerUser = (req: Request, res: Response): void => {
-  res.status(200).json({ msg: 'Ok' })
+export const registerUser = (req: Request, res: Response) => {
+  res.status(200).json({ msg: 'ok' })
 }
 
 /**
