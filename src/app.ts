@@ -1,9 +1,13 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
+import { userRoute } from './routes'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send('hello')
-})
+app.use('/api/users', userRoute)
 
-app.listen(5000, () => console.log('app listening in port 5000'))
+const port: number | string = process.env.PORT || 5000
+
+app.listen(port, () => console.log(`app listening in port ${port}`))
