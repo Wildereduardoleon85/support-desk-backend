@@ -11,13 +11,16 @@ export type User = {
   isAdmin: boolean
 }
 
-export type RegisterSchema = {
-  name: string
-  password: string
+export type LoginSchema = {
   email: string
+  password: string
 }
 
-export type RegisterService = {
-  data: User | null
-  message: string
+export interface RegisterSchema extends LoginSchema {
+  name: string
+}
+
+export type ServiceResponse = {
+  data?: User
+  error: string | null
 }

@@ -1,16 +1,15 @@
 import User from '../models/UserModel'
-import { RegisterSchema, RegisterService } from '../types'
+import { RegisterSchema, ServiceResponse } from '../types'
 import bcrypt from 'bcryptjs'
 
-async function registerService(body: RegisterSchema): Promise<RegisterService> {
+async function registerService(body: RegisterSchema): Promise<ServiceResponse> {
   const { email, password } = body
 
   const isUserExists = !!(await User.findOne({ email }))
 
   if (isUserExists) {
     return {
-      data: null,
-      message: 'the user alredy exists',
+      error: 'the user alredy exists',
     }
   }
 
@@ -24,7 +23,7 @@ async function registerService(body: RegisterSchema): Promise<RegisterService> {
 
   return {
     data: user,
-    message: 'user created',
+    error: null,
   }
 }
 

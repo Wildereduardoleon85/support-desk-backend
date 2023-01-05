@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import asyncHandler from 'express-async-handler'
-import User from '../models/UserModel'
+import loginService from '../services/loginService'
 import registerService from '../services/registerService'
 
 /**
@@ -10,16 +10,18 @@ import registerService from '../services/registerService'
  */
 export const registerUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const { data, message } = await registerService(req.body)
+    const { data, error } = await registerService(req.body)
 
-    if (!data) {
+    if (error) {
       res.status(400)
-      throw new Error(message)
+      throw new Error(error)
     }
 
-    const { _id, name, email } = data
-
-    res.status(201).json({ _id, name, email })
+    res.status(201).json({
+      _id: data?._id,
+      name: data?.name,
+      email: data?.email,
+    })
   }
 )
 
@@ -30,10 +32,17 @@ export const registerUser = asyncHandler(
  */
 export const loginUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const { password, email } = req.body
+    const { data, error } = await loginService(req.body)
 
-    const user = await User.findOne({ email })
+    if (error) {
+      res.status(401)
+      throw new Error(error)
+    }
 
-    res.send('Login route')
+    res.status(200).json({
+      _id: data?._id,
+      name: data?.name,
+      email: data?.email,
+    })
   }
 )
