@@ -1,9 +1,10 @@
+require('dotenv').config()
 import express from 'express'
 import { userRoute } from './routes'
-import dotenv from 'dotenv'
 import { errorHandler } from './middlewares/errorHandler'
+import connectDb from './config/database'
 
-dotenv.config()
+connectDb()
 
 const app = express()
 
@@ -16,4 +17,4 @@ app.use('/api/users', userRoute)
 
 app.use(errorHandler)
 
-app.listen(port, () => console.log(`app listening in port ${port}`))
+app.listen(port, () => console.log(`server running on port ${port}`))

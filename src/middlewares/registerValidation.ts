@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { validateRegisterSchema } from '../validations/validateRegisterSchema'
 
-export default (req: Request, res: Response, next: NextFunction) => {
+export default function (req: Request, res: Response, next: NextFunction) {
   const errors = validateRegisterSchema(req)
 
   if (errors.length) {

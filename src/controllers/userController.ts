@@ -1,19 +1,24 @@
 import { Request, Response } from 'express'
+import asyncHandler from 'express-async-handler'
 
 /**
  * @desc Register a new user
  * @route /api/users
  * @acess public
  */
-export const registerUser = (req: Request, res: Response) => {
-  res.status(200).json({ msg: 'ok' })
-}
+export const registerUser = asyncHandler(
+  async (_req: Request, res: Response): Promise<void> => {
+    res.status(200).json({ msg: 'ok' })
+  }
+)
 
 /**
  * @desc Login user
  * @route /api/users/login
  * @acess public
  */
-export const loginUser = (_req: Request, res: Response): void => {
-  res.send('Login route')
-}
+export const loginUser = asyncHandler(
+  async (_req: Request, res: Response): Promise<void> => {
+    res.send('Login route')
+  }
+)
