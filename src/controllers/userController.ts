@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import asyncHandler from 'express-async-handler'
 import loginService from '../services/loginService'
 import registerService from '../services/registerService'
+import { ServiceResponse } from '../types'
 
 /**
  * @desc Register a new user
@@ -10,18 +11,16 @@ import registerService from '../services/registerService'
  */
 export const registerUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const { data, error } = await registerService(req.body)
+    const { data, error, statusCode }: ServiceResponse = await registerService(
+      req.body
+    )
 
     if (error) {
-      res.status(400)
+      res.status(statusCode)
       throw new Error(error)
     }
 
-    res.status(201).json({
-      _id: data?._id,
-      name: data?.name,
-      email: data?.email,
-    })
+    res.status(statusCode).json(data)
   }
 )
 
@@ -32,17 +31,15 @@ export const registerUser = asyncHandler(
  */
 export const loginUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const { data, error } = await loginService(req.body)
+    const { data, error, statusCode }: ServiceResponse = await loginService(
+      req.body
+    )
 
     if (error) {
-      res.status(401)
+      res.status(statusCode)
       throw new Error(error)
     }
 
-    res.status(200).json({
-      _id: data?._id,
-      name: data?.name,
-      email: data?.email,
-    })
+    res.status(statusCode).json(data)
   }
 )

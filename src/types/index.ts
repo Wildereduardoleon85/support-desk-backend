@@ -21,6 +21,12 @@ export interface RegisterSchema extends LoginSchema {
 }
 
 export type ServiceResponse = {
-  data?: User
+  data?: {
+    _id: string
+    name: string
+    email: string
+    token: string
+  }
   error: string | null
+  statusCode: number
 }

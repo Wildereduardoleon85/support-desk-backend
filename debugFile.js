@@ -1,5 +1,5 @@
-const errors = ['one', 'two', 'three']
+const errors = ''
 
-console.log('\x1b[33m', '\x1b[1m', 'Sample Text', '\x1b[0m')
+const isError = !!errors
 
-console.log('hi')
+console.log(isError)
