@@ -1,3 +1,5 @@
+import { Request } from 'express'
+
 export type SchemaValidation = {
   isValid: boolean
   message: string
@@ -29,4 +31,8 @@ export type ServiceResponse = {
   }
   error: string | null
   statusCode: number
+}
+
+export interface AuthRequest extends Request {
+  user?: User
 }
