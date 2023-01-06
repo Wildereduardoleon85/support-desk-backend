@@ -4,7 +4,7 @@ import asyncHandler from 'express-async-handler'
 import UserModel from '../models/UserModel'
 import { AuthRequest, User } from '../types'
 
-const protect = asyncHandler(
+export const protect = asyncHandler(
   async (
     req: AuthRequest,
     res: Response,
@@ -37,5 +37,3 @@ const protect = asyncHandler(
     throw new Error('Not authorized')
   }
 )
-
-export default protect

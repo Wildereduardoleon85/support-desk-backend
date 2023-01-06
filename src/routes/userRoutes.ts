@@ -1,8 +1,6 @@
 import { Router } from 'express'
 import { loginUser, registerUser, getMe } from '../controllers/userController'
-import registerValidation from '../middlewares/registerValidation'
-import loginValidation from '../middlewares/loginValidation'
-import protect from '../middlewares/authMiddleware'
+import { registerValidation, loginValidation, protect } from '../middlewares'
 
 const userRoute: Router = Router()
 

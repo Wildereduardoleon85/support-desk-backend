@@ -1,13 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 import { validateRegisterSchema } from '../validations/validateRegisterSchema'
+import { validator } from './validator'
 
-export default function (req: Request, res: Response, next: NextFunction) {
-  const errors = validateRegisterSchema(req)
-
-  if (errors.length) {
-    res.status(400)
-    throw new Error(errors.join(', '))
-  }
-
-  next()
+export const registerValidation = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  validator(req, res, next, validateRegisterSchema)
 }

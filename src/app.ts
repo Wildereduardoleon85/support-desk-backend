@@ -1,7 +1,7 @@
 require('dotenv').config()
 import express from 'express'
 import { userRoute } from './routes'
-import { errorHandler } from './middlewares/errorHandler'
+import { errorHandler } from './middlewares'
 import connectDb from './config/database'
 
 connectDb()
