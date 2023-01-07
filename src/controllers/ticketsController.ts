@@ -4,6 +4,7 @@ import { getTicketsService } from '../services/getTicketsService'
 import { ServiceResponse, Ticket } from '../types'
 import { createTicketService } from '../services/createTicketService'
 import { getTicketService } from '../services/getTicketService'
+import { deleteTicketService } from '../services/deleteTicketService'
 
 /**
  * @desc  Get user tickets
@@ -59,5 +60,24 @@ export const getTicket = asyncHandler(
     }
 
     res.status(statusCode).json(data)
+  }
+)
+
+/**
+ * @desc  Delete a ticket
+ * @route DELETE /api/tickets/:id
+ * @acess private
+ */
+export const deleteTicket = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const { error, statusCode }: ServiceResponse<Ticket> =
+      await deleteTicketService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json({ message: 'ticket deleted successful' })
   }
 )

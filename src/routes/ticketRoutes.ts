@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import {
   createTicket,
+  deleteTicket,
   getTicket,
   getTickets,
 } from '../controllers/ticketsController'
@@ -13,6 +14,6 @@ ticketRoutes
   .get(protect, getTickets)
   .post(protect, createTicketValidation, createTicket)
 
-ticketRoutes.route('/:id').get(protect, getTicket)
+ticketRoutes.route('/:id').get(protect, getTicket).delete(protect, deleteTicket)
 
 export { ticketRoutes }
