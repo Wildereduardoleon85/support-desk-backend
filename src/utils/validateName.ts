@@ -18,7 +18,7 @@ export const validateName = (name: any): SchemaValidation => {
   if (name.trim().length === 0) {
     return {
       isValid: false,
-      message: 'field name is required',
+      message: 'field name must not be empty',
     }
   }
 

@@ -9,6 +9,8 @@
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --coverage=true",
     "transpile": "tsc",
     "build": "tsc -p ."
   },
