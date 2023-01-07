@@ -4,6 +4,7 @@ import {
   deleteTicket,
   getTicket,
   getTickets,
+  updateTicket,
 } from '../controllers/ticketsController'
 import { protect, createTicketValidation } from '../middlewares'
 
@@ -14,6 +15,10 @@ ticketRoutes
   .get(protect, getTickets)
   .post(protect, createTicketValidation, createTicket)
 
-ticketRoutes.route('/:id').get(protect, getTicket).delete(protect, deleteTicket)
+ticketRoutes
+  .route('/:id')
+  .get(protect, getTicket)
+  .delete(protect, deleteTicket)
+  .put(protect, updateTicket)
 
 export { ticketRoutes }

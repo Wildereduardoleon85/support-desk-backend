@@ -5,6 +5,7 @@ import {
   createTicketService,
   getTicketService,
   deleteTicketService,
+  updateTicketService,
 } from '../services'
 import { ServiceResponse, Ticket } from '../types'
 
@@ -81,5 +82,24 @@ export const deleteTicket = asyncHandler(
     }
 
     res.status(statusCode).json({ message: 'ticket deleted successful' })
+  }
+)
+
+/**
+ * @desc  Update a ticket
+ * @route PUT /api/tickets/:id
+ * @acess private
+ */
+export const updateTicket = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const { data, error, statusCode }: ServiceResponse<Ticket> =
+      await updateTicketService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
