@@ -3,7 +3,7 @@ import { AuthRequest, ServiceResponse, Ticket } from '../types'
 
 export const getTicketService = async (
   req: AuthRequest
-): Promise<ServiceResponse<Ticket[]>> => {
+): Promise<ServiceResponse<Ticket>> => {
   const { user: requestUser } = req
 
   const user = await UserModel.findById(requestUser?._id)
@@ -15,10 +15,24 @@ export const getTicketService = async (
     }
   }
 
-  const tickets = await TicketModel.find({ user: requestUser?._id })
+  const ticket = await TicketModel.findById(req.params.id)
+
+  if (!ticket) {
+    return {
+      error: 'ticket not found',
+      statusCode: 404,
+    }
+  }
+
+  if (String(ticket.user) !== String(req.user?._id)) {
+    return {
+      error: 'not authorized',
+      statusCode: 401,
+    }
+  }
 
   return {
-    data: tickets,
+    data: ticket,
     error: null,
     statusCode: 200,
   }
