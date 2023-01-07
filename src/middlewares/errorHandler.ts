@@ -5,7 +5,7 @@ export const errorHandler = (
   _req: Request,
   res: Response,
   _next: NextFunction
-) => {
+): void => {
   const statusCode: number = res.statusCode || 500
 
   res.status(statusCode)

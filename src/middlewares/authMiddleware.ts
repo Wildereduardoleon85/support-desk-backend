@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express'
+import { Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import asyncHandler from 'express-async-handler'
-import UserModel from '../models/UserModel'
+import { UserModel } from '../models'
 import { AuthRequest, User } from '../types'
 
 export const protect = asyncHandler(

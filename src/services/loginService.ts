@@ -1,12 +1,14 @@
-import User from '../models/UserModel'
-import { LoginSchema, ServiceResponse } from '../types'
+import { UserModel } from '../models'
+import { LoginSchema, ServiceResponse, UserResponse } from '../types'
 import bcrypt from 'bcryptjs'
 import { generateToken } from '../utils'
 
-async function loginService(body: LoginSchema): Promise<ServiceResponse> {
+async function loginService(
+  body: LoginSchema
+): Promise<ServiceResponse<UserResponse>> {
   const { password, email } = body
 
-  const user = await User.findOne({ email })
+  const user = await UserModel.findOne({ email })
 
   if (user && (await bcrypt.compare(password, user.password))) {
     return {

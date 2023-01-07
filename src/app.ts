@@ -1,6 +1,6 @@
 require('dotenv').config()
 import express from 'express'
-import { userRoute } from './routes'
+import { userRoutes, ticketRoutes } from './routes'
 import { errorHandler } from './middlewares'
 import connectDb from './config/database'
 
@@ -13,7 +13,8 @@ const port: number | string = process.env.PORT || 5000
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.use('/api/users', userRoute)
+app.use('/api/users', userRoutes)
+app.use('/api/tickets', ticketRoutes)
 
 app.use(errorHandler)
 

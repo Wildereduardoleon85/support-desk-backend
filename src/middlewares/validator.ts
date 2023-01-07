@@ -5,7 +5,7 @@ export const validator = (
   res: Response,
   next: NextFunction,
   schemaValidationMethod: Function
-) => {
+): void => {
   const errors = schemaValidationMethod(req)
 
   if (errors.length) {

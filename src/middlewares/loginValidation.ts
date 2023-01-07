@@ -6,6 +6,6 @@ export const loginValidation = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): void => {
   validator(req, res, next, validateLoginSchema)
 }

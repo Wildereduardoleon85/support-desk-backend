@@ -2,10 +2,10 @@ import { Router } from 'express'
 import { loginUser, registerUser, getMe } from '../controllers/userController'
 import { registerValidation, loginValidation, protect } from '../middlewares'
 
-const userRoute: Router = Router()
+const userRoutes: Router = Router()
 
-userRoute.post('/', registerValidation, registerUser)
-userRoute.post('/login', loginValidation, loginUser)
-userRoute.get('/me', protect, getMe)
+userRoutes.post('/', registerValidation, registerUser)
+userRoutes.post('/login', loginValidation, loginUser)
+userRoutes.get('/me', protect, getMe)
 
-export { userRoute }
+export { userRoutes }

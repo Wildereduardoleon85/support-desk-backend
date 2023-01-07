@@ -2,18 +2,17 @@ import { Request, Response } from 'express'
 import asyncHandler from 'express-async-handler'
 import loginService from '../services/loginService'
 import registerService from '../services/registerService'
-import { AuthRequest, ServiceResponse } from '../types'
+import { AuthRequest, ServiceResponse, UserResponse } from '../types'
 
 /**
- * @desc Register a new user
- * @route /api/users
+ * @desc  Register a new user
+ * @route POST /api/users
  * @acess public
  */
 export const registerUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const { data, error, statusCode }: ServiceResponse = await registerService(
-      req.body
-    )
+    const { data, error, statusCode }: ServiceResponse<UserResponse> =
+      await registerService(req.body)
 
     if (error) {
       res.status(statusCode)
@@ -25,15 +24,14 @@ export const registerUser = asyncHandler(
 )
 
 /**
- * @desc Login user
- * @route /api/users/login
+ * @desc  Login user
+ * @route POST /api/users/login
  * @acess public
  */
 export const loginUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const { data, error, statusCode }: ServiceResponse = await loginService(
-      req.body
-    )
+    const { data, error, statusCode }: ServiceResponse<UserResponse> =
+      await loginService(req.body)
 
     if (error) {
       res.status(statusCode)
@@ -45,8 +43,8 @@ export const loginUser = asyncHandler(
 )
 
 /**
- * @desc Get current user
- * @route /api/users/me
+ * @desc  Get current user
+ * @route GET /api/users/me
  * @acess private
  */
 export const getMe = asyncHandler(

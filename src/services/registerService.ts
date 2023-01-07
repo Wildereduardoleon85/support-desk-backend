@@ -1,12 +1,14 @@
-import User from '../models/UserModel'
-import { RegisterSchema, ServiceResponse } from '../types'
+import { UserModel } from '../models'
+import { RegisterSchema, ServiceResponse, UserResponse } from '../types'
 import bcrypt from 'bcryptjs'
 import { generateToken } from '../utils'
 
-async function registerService(body: RegisterSchema): Promise<ServiceResponse> {
+async function registerService(
+  body: RegisterSchema
+): Promise<ServiceResponse<UserResponse>> {
   const { email: bodyEmail, password } = body
 
-  const isUserExists = !!(await User.findOne({ email: bodyEmail }))
+  const isUserExists = !!(await UserModel.findOne({ email: bodyEmail }))
 
   if (isUserExists) {
     return {
@@ -18,7 +20,7 @@ async function registerService(body: RegisterSchema): Promise<ServiceResponse> {
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
 
-  const { _id, name, email } = await User.create({
+  const { _id, name, email } = await UserModel.create({
     ...body,
     password: hashedPassword,
   })
