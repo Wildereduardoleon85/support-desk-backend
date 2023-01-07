@@ -1,20 +1,20 @@
 import { Request } from 'express'
+import { validateProduct, validateDescription } from '../utils'
 
 export const validateCreateTicketSchema = (req: Request): string[] => {
-  const { description, product } = req.body
+  const { product, description } = req.body
 
   const errors: string[] = []
 
-  if (!product.trim()) {
-    errors.push('please add a product')
+  const productValidation = validateProduct(product)
+  const descriptionValidation = validateDescription(description)
+
+  if (!productValidation.isValid) {
+    errors.push(productValidation.message)
   }
 
-  if (!description.trim()) {
-    errors.push('please add a description')
-  }
-
-  if (description.trim().length < 3) {
-    errors.push('field description must be at least 3 characters')
+  if (!descriptionValidation.isValid) {
+    errors.push(descriptionValidation.message)
   }
 
   return errors
