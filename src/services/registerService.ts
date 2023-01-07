@@ -3,9 +3,9 @@ import { RegisterSchema, ServiceResponse, UserResponse } from '../types'
 import bcrypt from 'bcryptjs'
 import { generateToken } from '../utils'
 
-async function registerService(
+export const registerService = async (
   body: RegisterSchema
-): Promise<ServiceResponse<UserResponse>> {
+): Promise<ServiceResponse<UserResponse>> => {
   const { email: bodyEmail, password } = body
 
   const isUserExists = !!(await UserModel.findOne({ email: bodyEmail }))
@@ -31,5 +31,3 @@ async function registerService(
     statusCode: 201,
   }
 }
-
-export default registerService

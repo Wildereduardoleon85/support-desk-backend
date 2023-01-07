@@ -1,10 +1,12 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
-import { getTicketsService } from '../services/getTicketsService'
+import {
+  getTicketsService,
+  createTicketService,
+  getTicketService,
+  deleteTicketService,
+} from '../services'
 import { ServiceResponse, Ticket } from '../types'
-import { createTicketService } from '../services/createTicketService'
-import { getTicketService } from '../services/getTicketService'
-import { deleteTicketService } from '../services/deleteTicketService'
 
 /**
  * @desc  Get user tickets

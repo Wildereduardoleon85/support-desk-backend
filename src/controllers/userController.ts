@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import asyncHandler from 'express-async-handler'
-import loginService from '../services/loginService'
-import registerService from '../services/registerService'
+import { loginService, registerService } from '../services'
 import { AuthRequest, ServiceResponse, UserResponse } from '../types'
 
 /**

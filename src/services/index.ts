@@ -1,0 +1,6 @@
+export * from './createTicketService'
+export * from './deleteTicketService'
+export * from './getTicketService'
+export * from './getTicketsService'
+export * from './loginService'
+export * from './registerService'

@@ -3,9 +3,9 @@ import { LoginSchema, ServiceResponse, UserResponse } from '../types'
 import bcrypt from 'bcryptjs'
 import { generateToken } from '../utils'
 
-async function loginService(
+export const loginService = async (
   body: LoginSchema
-): Promise<ServiceResponse<UserResponse>> {
+): Promise<ServiceResponse<UserResponse>> => {
   const { password, email } = body
 
   const user = await UserModel.findOne({ email })
@@ -28,5 +28,3 @@ async function loginService(
     statusCode: 401,
   }
 }
-
-export default loginService
