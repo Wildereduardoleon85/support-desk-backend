@@ -31,7 +31,7 @@ export const deleteTicketService = async (
     }
   }
 
-  await ticket.remove()
+  await TicketModel.findByIdAndDelete(req.params.id)
 
   return {
     error: null,
