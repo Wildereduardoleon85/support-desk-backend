@@ -6,7 +6,14 @@ export const getTicketsService = async (
 ): Promise<ServiceResponse<Ticket[]>> => {
   const { user: requestUser } = req
 
-  const user = await UserModel.findById(requestUser?._id)
+  if (!requestUser) {
+    return {
+      error: 'internal server error',
+      statusCode: 500,
+    }
+  }
+
+  const user = await UserModel.findById(requestUser._id)
 
   if (!user) {
     return {
@@ -15,7 +22,7 @@ export const getTicketsService = async (
     }
   }
 
-  const tickets = await TicketModel.find({ user: requestUser?._id })
+  const tickets = await TicketModel.find({ user: requestUser._id })
 
   return {
     data: tickets,
