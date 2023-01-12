@@ -10,14 +10,14 @@ const mockedUserFindById = UserModel.findById as jest.Mock
 const mockedTicketFindById = TicketModel.findById as jest.Mock
 const mockedTicketFindByIdAndDelete = TicketModel.findByIdAndDelete as jest.Mock
 
-const mockedReq = {
+const mockedReq: any = {
   params: {
     id: 'some query param ticket id',
   },
   user: {
     _id: 'some user id',
   },
-} as unknown
+}
 
 const mockedUser = {
   _id: 'some user id',
@@ -33,9 +33,26 @@ const mockedTicket = {
 }
 
 describe('deleteTicketService', () => {
-  describe('When there is no user', () => {
+  describe('When there is no user from the auth middleware', () => {
+    it('should return an error and a 401 status code', async () => {
+      mockedReq.user = undefined
+
+      const response = await deleteTicketService(mockedReq as AuthRequest)
+
+      expect(response).toEqual({
+        error: 'internal server error',
+        statusCode: 500,
+      })
+    })
+  })
+
+  describe('When there is no user from the database', () => {
     it('should return an error and a 401 status code', async () => {
       mockedUserFindById.mockResolvedValueOnce(false)
+
+      mockedReq.user = {
+        _id: 'some user id',
+      }
 
       const response = await deleteTicketService(mockedReq as AuthRequest)
 

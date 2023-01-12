@@ -6,7 +6,14 @@ export const getTicketService = async (
 ): Promise<ServiceResponse<Ticket>> => {
   const { user: requestUser } = req
 
-  const user = await UserModel.findById(requestUser?._id)
+  if (!requestUser) {
+    return {
+      error: 'internal server error',
+      statusCode: 500,
+    }
+  }
+
+  const user = await UserModel.findById(requestUser._id)
 
   if (!user) {
     return {
@@ -24,7 +31,7 @@ export const getTicketService = async (
     }
   }
 
-  if (String(ticket.user) !== String(req.user?._id)) {
+  if (String(ticket.user) !== String(requestUser._id)) {
     return {
       error: 'not authorized',
       statusCode: 401,
